@@ -1,0 +1,80 @@
+extend layout
+block style
+	link(rel='stylesheet',href="/stylesheets/login.css")
+
+block content
+	//-h1= title
+	.top_div
+	.login_div
+		.cat-box
+			.tou
+			#left_hand.initial_left_hand
+			#right_hand.initial_right_hand
+		.form_box.relative
+			.move_box.relative.clearfix
+				form#login_form.single_form(action='ucenter', method='post')
+					.top_box
+						p.relative.small-widget
+							span.u_logo.ipt_logo
+							input#name.ipt(name="name",type="text",placeholder="请输入用户名或邮箱")
+						p.relative
+							span.p_logo.ipt_logo
+							input#password.ipt(name="password", type="password",placeholder="请输入密码")
+					.bottom_box
+						p.clearfix
+							span.fl
+								a#forget.tx-grey(href="#",target="_blank") 忘记密码
+							span.fr
+								span#register.tx-grey.pointer 注册»
+								input#login_btn.form_btn(type="submit", value="登录")
+				form#register_form.single_form(action='register',method='post')
+					.top_box
+						p.relative.small-widget
+							span.u_logo.ipt_logo
+							input#re_name.ipt(name="re_name",type="text",placeholder="请输入用户名或邮箱")
+						p.relative
+							span.p_logo.ipt_logo
+							input#re_password.ipt(name="re_password", type="password",placeholder="请输入密码")
+					.bottom_box
+						p.clearfix
+							span.fr
+								span#back_login.tx-grey.pointer «登录
+								input#register_btn.form_btn(type="submit", value="注册")
+	script.
+		$(function(){
+			//得到焦点
+			$("[type='password']").focus(function(){
+				$("#left_hand").animate({
+					left: "150",
+					top: " -38"
+				},{step: function(){
+					if(parseInt($("#left_hand").css("left"))>140){
+						$("#left_hand").attr("class","left_hand");
+					}
+				}}, 2000);
+				$("#right_hand").animate({
+					right: "-64",
+					top: "-38px"
+				},{step: function(){
+					if(parseInt($("#right_hand").css("right"))> -70){
+						$("#right_hand").attr("class","right_hand");
+					}
+				}}, 2000);
+			});
+			//失去焦点
+			$("[type='password']").blur(function(){
+				$("#left_hand").attr("class","initial_left_hand");
+				$("#left_hand").attr("style","left:100px;top:-12px;");
+				$("#right_hand").attr("class","initial_right_hand");
+				$("#right_hand").attr("style","right:-112px;top:-12px");
+			});
+			//前往注册
+			$('#register').click(function(){
+				$('.move_box').addClass('moved');
+			});
+			//返回登录
+			$('#back_login').click(function(){
+				$('.move_box').removeClass('moved');
+			})
+
+		});
