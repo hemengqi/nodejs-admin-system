@@ -21,7 +21,7 @@ router.post('/ucenter', function(req, res, next) {
   			res.render('ucenter', { title: 'User Center',name:query.name });
   		}else{
   			console.log(query.name +'login fail');
-  			res.redirect('/login');
+  			res.redirect('/');
   		}
   	})
   })(query)
@@ -32,14 +32,22 @@ router.post('/register', function(req, res, next) {
   var query = {name: req.body.re_name,password:req.body.re_password};
   console.log(query);
   (function(){
-  	var user = new userModel(query);
-	user.save(function(e,product,numberAffected){
-		if(e) res.send(e.message);
-		var html = '<p>新注册的会员数据为：'+ JSON.stringify(product) +'</p>';
-		html += '<p>影响的数据量为：'+numberAffected+'</p>';
-		console.log(html);
-		res.redirect('/login');
-	});
+  	userModel.find({name:query.name},function(err,doc){
+  		if(doc.length>0){
+  			console.log('username already existed');
+  			res.redirect('/');
+  		}else{
+  			var user = new userModel(query);
+			user.save(function(e,product,numberAffected){
+				if(e) res.send(e.message);
+				var html = '<p>新注册的会员数据为：'+ JSON.stringify(product) +'</p>';
+				html += '<p>影响的数据量为：'+numberAffected+'</p>';
+				console.log(html);
+				res.redirect('/');
+			});
+  		}
+  	})
+  	
   })(query)
   
 });

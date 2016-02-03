@@ -68,6 +68,7 @@ router.get('/find',function(req,res){
 	userModel.find({
 		name: 'dsfdsf'
 	},function(e,docs){
+		console.log(docs);
 		if(e) res.send(e.message);
 		var html = '<p>查询到的数据为：'+JSON.stringify(docs)+'</p>';
 		res.send(html);

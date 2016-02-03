@@ -1,6 +1,7 @@
 .validate_form label.error{
 	position: absolute;
 	right: 0;
+	top: 0;
 	display: inline-block;
 	line-height: 37px;
 	background: #ddd;
