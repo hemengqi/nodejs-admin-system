@@ -1,0 +1,52 @@
+.validate_form label.error{
+	position: absolute;
+	right: 0;
+	display: inline-block;
+	line-height: 37px;
+	background: #ddd;
+	padding: 0 10px;
+	border-radius: 4px;
+	color: #666;
+}
+.validate_form .ipt_box + .ipt_box{
+	margin-top: 15px;
+}
+.validate_form .ipt_box .ipt_logo{
+	padding: 10px 10px;
+	position: absolute;
+	top: 12px;
+	left: 10px;
+}
+.validate_form .ipt_box .ipt{
+	border: 1px solid #d3d3d3;
+	padding: 10px 10px;
+	width: 290px;
+	border-radius: 4px;
+	
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	-webkit-transition: border-color ease-in-out .15s,	
+	-webkit-box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+}
+.validate_form .ipt_box .ipt_logo + .ipt{
+	padding-left: 35px;
+}
+.validate_form .ipt_box .ipt:focus{
+	border-color: #66afe9;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+}
+.validate_form .form_btn{
+	background: rgb(0, 142, 173);
+	padding: 7px 10px;
+	margin-left: 10px;
+	border-radius: 4px;
+	border: 1px solid rgb(26, 117, 152);
+	border-image: none;
+	color: rgb(255, 255, 255);
+	font-weight: bold;
+	cursor: pointer;
+}
