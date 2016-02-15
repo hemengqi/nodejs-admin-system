@@ -1,4 +1,22 @@
 extend layout
-
 block content
 	p Welcome, #{name}
+	.form_box.relative.validate_form
+		form#search_form.relative(method="post" action="search")
+			.ipt_box.relative
+				span.ipt_logo.icon-search
+				input.ipt(id="searchInput" name="search" type="text" placeholder="搜索" required data-msg-required="请输入搜索关键词")
+				button.form_btn(type="submit" ) 搜索
+	.form_box.relative.validate_form
+		form#file_form(method="post" action="file")
+			input(type="file")
+			button.form_btn(type="submit")  提交
+	script.
+		$(function(){
+			//搜索验证
+			$('#search_form').validate({
+				submitHandler: function(form){
+					form.submit();
+				}
+			})
+		})

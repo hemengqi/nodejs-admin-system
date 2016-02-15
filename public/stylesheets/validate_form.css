@@ -13,10 +13,10 @@
 	margin-top: 15px;
 }
 .validate_form .ipt_box .ipt_logo{
-	padding: 10px 10px;
 	position: absolute;
 	top: 12px;
-	left: 10px;
+	left: 15px;
+	color: #A6A6A6;
 }
 .validate_form .ipt_box .ipt{
 	border: 1px solid #d3d3d3;

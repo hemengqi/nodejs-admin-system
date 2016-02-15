@@ -1,9 +1,6 @@
 extend layout
-block style
-	link(rel='stylesheet',href="/stylesheets/validate_form.css")
+block append style
 	link(rel='stylesheet',href="/stylesheets/login.css")
-block append script
-	script(src="/javascripts/jquery.validate.js")
 block content
 	//-h1= title
 	.top_div
@@ -12,16 +9,16 @@ block content
 			.tou
 			#left_hand.initial_left_hand
 			#right_hand.initial_right_hand
-		.form_box.relative.validate_form
+		.form_box.over_hide.relative.validate_form
 			.move_box.relative.clearfix
 				mixin form(id,action,name,password)
 					form.single_form(id=id, action=action, method='post')
 						.top_box
 							.ipt_box.relative
-								span.u_logo.ipt_logo
+								span.ipt_logo.icon-envelope
 								input.ipt(id=name,name=name,type="text",placeholder="请输入用户名或邮箱",required="",data-msg-required="请输入用户名或邮箱", data-msg-minlength="请输入最小6位",minlength="6")
 							.ipt_box.relative
-								span.p_logo.ipt_logo
+								span.ipt_logo.icon-asterisk
 								input.ipt(id=password name=password, type="password",placeholder="请输入密码",required="",data-msg-required="请输入密码",data-msg-minlength="最少输入6个",minlength="6",maxlength="20")
 						.bottom_box
 							.clearfix

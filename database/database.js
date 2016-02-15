@@ -14,19 +14,6 @@ var userSchema = new mongoose.Schema({
 var userModel = mongoose.model('users',userSchema);
 router.get('/',function(req,res){
 	res.send(mongoose.open);
-	/*mongoose.connect("mongodb://localhost/chihuo",function(e){
-		if(e) res.send(e.message);
-		res.send('connect success!');
-	});*/
-	/*db.on('error', function(error){
-		console.log(error);
-		res.send(error);
-	});
-	db.once('open', function() {
-	  	console.log('mongoose opened!');
-	  	res.send('mongoose opened');
-	});*/
-	
 });
 //增
 router.get('/insert',function(req,res){

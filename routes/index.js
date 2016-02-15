@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
+//var search = require('search');
 var userModel = require('../database/database').user;
 
 /* GET home page. */
@@ -17,10 +19,10 @@ router.post('/ucenter', function(req, res, next) {
   (function(){
   	userModel.count(query,function(err,doc){
   		if(doc==1){
-  			console.log(query.name+'login success');
+  			console.log(query.name+' login success');
   			res.render('ucenter', { title: 'User Center',name:query.name });
   		}else{
-  			console.log(query.name +'login fail');
+  			console.log(query.name +' login fail');
   			res.redirect('/');
   		}
   	})
@@ -50,5 +52,14 @@ router.post('/register', function(req, res, next) {
   	
   })(query)
   
+});
+/* GET search page. */
+router.post('/search',function(req,res,next){
+  res.end(req.body.search);
+});
+/* GET file*/
+router.post('/file',function(req,res,next){
+  console.log(req.body.files);
+  res.end('file submit success');
 });
 module.exports = router;

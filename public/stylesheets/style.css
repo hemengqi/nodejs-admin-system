@@ -1,8 +1,36 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body{
+	font-family: "Microsoft YaHei","Hiragino Sans GB","Microsoft YaHei","\9ED1\4F53",Arial,sans-serif;
+	color: #222;
+	font-size: 12px;
 }
-
-a {
-  color: #00B7FF;
+*{padding: 0px;margin: 0px;}
+a{
+	color: #00B7FF;
+	text-decoration: none;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.clearfix:after,.clearfix:before{
+	content: '';
+	display: table;
+	clear: both;
+}
+.pointer{
+	cursor: pointer;
+}
+.tx-grey{
+	color: rgb(204, 204, 204);
+}
+.relative{
+	position: relative;
+}
+.small-widget{
+	margin-bottom: 10px;
+}
+.over_hide{
+	overflow: hidden;
 }
