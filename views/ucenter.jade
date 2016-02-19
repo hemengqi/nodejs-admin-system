@@ -1,6 +1,6 @@
 extend layout
 block content
-	p Welcome, #{name}
+	p Welcome, #{user.name}
 	a(href="/logout") Logout
 	a(href="/login") Login
 	a(href="/register") Register
@@ -12,7 +12,7 @@ block content
 				button.form_btn(type="submit" ) 搜索
 	.form_box.relative.validate_form
 		form#file_form(method="post" action="file" enctype="multipart/form-data")
-			input(type="file")
+			input(type="file" name="upfile" multiple)
 			button.form_btn(type="submit")  提交
 
 	script.

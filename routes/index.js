@@ -1,11 +1,16 @@
-var express = require('express');
-var router = express.Router();
-var userModel = require('../database/database').user;
+var express = require('express'),
+    router = express.Router(),
+    fs = require('fs'),
+    multiparty = require('multiparty'),
+    //formidable = require('formidable'),
+    userModel = require('../database/database').user;
 
 /* Check login */
 router.use(function(req,res,next){
   //记录登录信息
   res.locals.user = req.session.user;
+  console.log('session');
+  console.log(res.locals.user);
   next();
 });
 /* GET home page. */
@@ -85,8 +90,29 @@ router.post('/search',function(req,res,next){
 });
 /* GET file*/
 router.post('/file',function(req,res,next){
-  console.log(req.files);
-  res.end('file submit success');
+  var tempPath = './public/temp/';
+  //配置上传路径
+  var form = new multiparty.Form({uploadDir: tempPath});
+  form.parse(req,function(err,fields,files){
+    //创建临时文件保存真实文件信息
+    var filesTmp = JSON.stringify(files,null,2);
+    if (err){
+      return res.end('parse error: '+err);
+    }else{
+      console.log('parse file: '+filesTmp);
+      var inputFile  = files.upfile[0],
+          uploadedPath = inputFile.path,
+          dstPath = tempPath + inputFile.originalFilename;
+      //临时文件重命名为真实文件
+      fs.rename(uploadedPath,dstPath,function(err){
+        if(err){
+          return res.end('rename error: '+err);
+        }else{
+          return res.end('rename ok');
+        }
+      })
+    }
+  })
 });
 
 module.exports = router;
