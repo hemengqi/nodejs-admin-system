@@ -53,7 +53,7 @@ router.get('/update',function(req,res){
 router.get('/find',function(req,res){
 	console.log('find');
 	userModel.find({
-		name: 'dsfdsf'
+		name: 'hemengqi'
 	},function(e,docs){
 		console.log(docs);
 		if(e) res.send(e.message);
