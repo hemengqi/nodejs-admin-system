@@ -1,26 +1,9 @@
-extend layout
-block content
-	p Welcome, #{user.name}
-	a(href="/logout") Logout
-	a(href="/login") Login
-	a(href="/register") Register
-	.form_box.relative.validate_form
-		form#search_form.relative(method="post" action="search")
-			.ipt_box.relative
-				span.ipt_logo.icon-search
-				input.ipt(id="searchInput" name="search" type="text" placeholder="搜索" required data-msg-required="请输入搜索关键词")
-				button.form_btn(type="submit" ) 搜索
-	.form_box.relative.validate_form
-		form#file_form(method="post" action="file" enctype="multipart/form-data")
-			input(type="file" name="upfile" multiple)
-			button.form_btn(type="submit")  提交
-
-	script.
-		$(function(){
-			//搜索验证
-			$('#search_form').validate({
-				submitHandler: function(form){
-					form.submit();
-				}
-			})
-		})
+doctype html
+html
+	head
+		title= title
+		link(rel="stylesheet", href="/stylesheets/ng-admin/ng-admin.min.css") 
+	body(ng-app="myApp")
+		div(ui-view)
+		script(src="/javascripts/ng-admin/ng-admin.min.js")
+		script(src="/javascripts/admin.js")

@@ -1,34 +1,38 @@
 var express = require('express'),
     router = express.Router(),
     fs = require('fs'),
-    multiparty = require('multiparty'),
+    //multiparty = require('multiparty'),
     //formidable = require('formidable'),
     userModel = require('../database/database').user;
 
-/* Check login */
+/* 中间件 */
 router.use(function(req,res,next){
-  //记录登录信息
+  /*记录登录信息*/
   res.locals.user = req.session.user;
   console.log('session');
   console.log(res.locals.user);
   next();
 });
-/* GET home page. */
+/* 首页验证登录 */
 router.get('/', function(req, res) {
-  var user = req.session.user;
-  if(!user){
+  /*如未登录，重定向到登录页面*/
+  if(!req.session.user){
     return res.redirect('/login');
   }
-  res.render('ucenter',{title:'User Center',name:user.name});
+  res.render('index',{title:'User Center',name:req.session.user.name});
 });
-/* GET login page */
+/* 登录页 */
 router.route('/login')
+/*接收网页请求，渲染*/
 .get(function(req,res) {
+  /*如已登录，重定向到首页*/
   if(req.session.user){
     return res.redirect('/');
   };
+  /*渲染页面并显示注册信息*/
   res.render('login', { title: 'LOGIN' , type:'login',success: req.query.login,tips:req.query.name});
 })
+/*提交登录请求，验证*/
 .post(function(req, res) {
   var query = {name: req.body.name,password:req.body.password};
   /*验证用户名和密码*/
@@ -41,6 +45,7 @@ router.route('/login')
   			console.log(query.name+' login success');
         req.session.user = user;
         console.log('req.session.user.name=='+req.session.user.name);
+        /*重定向到首页*/
         res.redirect('/');
   		}else{
         /*用户不存在或密码错误*/
@@ -50,14 +55,16 @@ router.route('/login')
   	})
   })(query)
 });
-/* GET register page */
+/* 注册页 */
 router.route('/register')
+/*接收网页请求，渲染*/
 .get(function(req,res){
   if(req.session.user){
     return res.redirect('/');
   };
   res.render('login', { title: 'REGISTER' , type:'register',tips:req.query.name});
 })
+/*发送注册请求*/
 .post(function(req, res) {
   var query = {name: req.body.re_name,password:req.body.re_password};
   (function(){
@@ -79,16 +86,24 @@ router.route('/register')
   	
   })(query) 
 });
-/* GET logout */
+/* 退出 */
 router.get('/logout',function(req,res){
   req.session.user = null;
   res.redirect('/');
 });
-/* GET search page. */
+/*用户后台*/
+router.get('/ucenter',function(req,res){
+  /*如未登录，重定向到登录页面*/
+  if(!req.session.user){
+    return res.redirect('/login');
+  }
+  res.render('ucenter');
+});
+/* 接收搜索请求 */
 router.post('/search',function(req,res,next){
   res.end(req.body.search);
 });
-/* GET file*/
+/* 上传文件*/
 router.post('/file',function(req,res,next){
   var tempPath = './public/temp/';
   //配置上传路径

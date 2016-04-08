@@ -8,6 +8,7 @@ var session = require('express-session');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var bird = require('./routes/bird');
+var angular = require('./routes/angular_demo');
 var mongo = require('./database/database').router;
 
 var app = express();
@@ -25,16 +26,17 @@ app.use(cookieParser());//在req.cookies中访问cookie数据
 app.use(session({
   secret: 'my secret app',
   name: 'testapp',//cookie的name，默认cookie的name是：connect.sid
-  cookie: {maxAge: 80000},//80s后session和相应的cookie失效过期
+  cookie: {maxAge: 800000},//80s后session和相应的cookie失效过期
   resave: false,
   saveUninitialized: true,
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+app.use('/', routes);//首页路由
 app.use('/users', users);
 app.use('/bird',bird);
 app.use('/mongoDB',mongo);
+app.use('/angular',angular);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

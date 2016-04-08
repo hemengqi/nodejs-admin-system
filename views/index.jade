@@ -1,11 +1,42 @@
-extends layout
-
+extend layout
+block append style
+	
+block append script
+	
 block content
-  if authenticated
-    h2 Welcome back, #{user.name} !
-    a(href="/logout") Logout
-  else
-    h2 Welcome, new visitor! #{authenticated}
-    ul
-      li: a(href="/login") Login
-      li: a(href="/register") Register
+	p Welcome, #{name}
+	a(href="/logout") Logout
+	a(href="/login") Login
+	a(href="/register") Register
+	a(href="/ucenter") User Center
+	a(href="/angular/demo1") demo1
+	.form_box.relative.validate_form
+		form#search_form.relative(method="post" action="search")
+			.ipt_box.relative
+				span.ipt_logo.icon-search
+				input.ipt(id="searchInput" name="search" type="text" placeholder="搜索" required data-msg-required="请输入搜索关键词")
+				button.form_btn(type="submit" ) 搜索
+	.form_box.relative.validate_form
+		form#file_form(method="post" action="file" enctype="multipart/form-data")
+			input(type="file" name="upfile" multiple)
+			button.form_btn(type="submit")  提交
+	script.
+		$(function(){
+			//搜索验证
+			$('#search_form').validate({
+				submitHandler: function(form){
+					form.submit();
+				}
+			})
+		})
+		var myApp = angular.module('myApp', ['ng-admin']);
+		myApp.config(['NgAdminConfigurationProvider', function(NgAdminConfigurationProvider) {
+			var nga = NgAdminConfigurationProvider;
+			// create an admin application
+			var admin = nga.application('My First Admin');
+			// more configuration here later
+			// ...
+			// attach the admin application to the DOM and run it
+			nga.configure(admin);
+		}]);
+

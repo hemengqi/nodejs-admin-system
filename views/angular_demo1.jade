@@ -1,0 +1,12 @@
+extend layout_angular
+block append script
+	script(src="/javascripts/angular_demo1.js")
+block content
+	h4 数据双向绑定
+	input(type="text",ng-model="yourName",placeholder="name")
+	p Hello,{{yourName}}!
+	h4 进度条
+	progress-bar
+	div.progress(ng-cotroller="progress")
+		div(ng-class="{progress-bar:true, progress-bar-striped:vm.striped}")
+			
