@@ -7,4 +7,11 @@ app.directive('progressBar',function(){
 			  '</div>'+
 			'</div>'
 	}
+});
+app.controller('progress',function($scope){
+	var vm = $scope.vm ={};
+	vm.width = 50;
+	vm.style = 'progress-bar-success progress-bar-striped';
+	vm.striped = true;
+	vm.label = true;
 })

@@ -7,6 +7,8 @@ block content
 	p Hello,{{yourName}}!
 	h4 进度条
 	progress-bar
-	div.progress(ng-cotroller="progress")
-		div(ng-class="{progress-bar:true, progress-bar-striped:vm.striped}")
+	div(ng-controller="progress")
+		div.progress(ng-class="{'':true,'progress-bar-striped':vm.striped}")
+			div(ng-class="['progress-bar', vm.style]",ng-style="{width:vm.width+'%'}")
+				div(ng-if = "vm.label") {{vm.width}}%
 			
