@@ -29,8 +29,36 @@ block content
 		label(for="addProgressWidth")
 			input.form-control#addProgressWidth(type="number",ng-model="vm.addWidth",placeholder="进度百分比")
 		button.btn.btn-info(ng-click="vm.addProgress(vm.addType,vm.addWidth)") 添加进度条
-		h4 ui组件：城市3级联动
-		city-select
+	h4 ui组件：城市3级联动
+	city-select
+	h4 ui组件综合：表格/表单
+	div(ng-controller="editableTable")
+		div.input-group
+			span.input-group-addon 全局搜索
+			input.form-control(type="text",ng-model='vm.filter.$')
+		table.table.table-striped.table-hover
+			thead
+				tr
+					th(ng-repeat="th in vm.th") {{th.label}}
+			tbody
+				tr(ng-repeat="item in vm.items")
+					td {{item.id}}
+					td 
+						span(ng-if="!item.editing") {{item.name}}
+						input.form-control(ng-if="item.editing",type="text",ng-model="item.name",value="{{item.name}}")
+					td 
+						span(ng-if="!item.editing") {{item.mobile}}
+						input.form-control(ng-if="item.editing",type="text" ,ng-model="item.mobile",value="{{item.mobile}}")
+					td 
+						span(ng-if="!item.editing") {{item.price}}元
+						input.form-control(ng-if="item.editing",type="text" ,ng-model="item.price",value="{{item.price}}")
+					td
+						span.btn.btn-primary.btn-xs(ng-click="item.editing = true",ng-if="!item.editing",title="编辑" )
+							i.glyphicon.glyphicon-pencil
+						span.btn.btn-primary.btn-xs(ng-if="item.editing",ng-click="item.editing = false",title="保存")
+							i.glyphicon.glyphicon-floppy-disk
+						span.btn.btn-danger.btn-xs(ng-click="vm.removeItem($index)")
+							i.glyphicon.glyphicon-remove
 
 
 			

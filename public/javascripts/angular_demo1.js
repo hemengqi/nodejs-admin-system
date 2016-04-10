@@ -1,7 +1,7 @@
 var app = angular.module("myApp", []);
 app.controller('progress',function($scope){
 	var vm = $scope.vm ={};
-	vm.type = ['progress-bar-info','progress-bar-success','progress-bar-warning','progress-bar-danger']
+	vm.type = ['progress-bar-info','progress-bar-success','progress-bar-warning','progress-bar-danger','progress-bar-primary']
 	vm.progress = [{'type':'progress-bar-danger','width':50}];
 	vm.addProgress = function(type,width){
 		if(type&&width){
@@ -64,5 +64,36 @@ app.directive('citySelect',function(){
 	return{
 		'restrict': 'E',
 		'templateUrl': '../views/citySelect.html'
+	}
+});
+app.controller('editableTable',function($scope){
+	var vm = $scope.vm = {};
+	vm.th = [{
+		'label': '用户ID'
+	},{
+		'label': '用户名'
+	},{
+		'label': '联系电话',
+	},{
+		'label': '累计消费'
+	},{
+		'label': '操作',
+	}];
+	vm.items = [];
+	var num = 10;
+	function numbers(i){
+		return Math.random().toFixed(i)*Math.pow(10,i)
+	}
+	for(var i = 0; i < num; i++){
+		vm.items[i]={
+			'id': i,
+			'name': 'name'+(num-i),
+			'mobile': numbers(3),
+			'price': numbers(5),
+			'editing': false,
+		}
+	}
+	vm.removeItem = function(index){
+		vm.items.splice(index,1);
 	}
 })
