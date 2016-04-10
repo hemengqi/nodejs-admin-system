@@ -2,13 +2,35 @@ extend layout_angular
 block append script
 	script(src="/javascripts/angular_demo1.js")
 block content
-	h4 数据双向绑定
-	input(type="text",ng-model="yourName",placeholder="name")
-	p Hello,{{yourName}}!
-	h4 进度条
-	progress-bar
+	h3 Bootstrap UI组件
 	div(ng-controller="progress")
-		div.progress(ng-class="{'':true,'progress-bar-striped':vm.striped}")
-			div(ng-class="['progress-bar', vm.style]",ng-style="{width:vm.width+'%'}")
-				div(ng-if = "vm.label") {{vm.width}}%
+		h4 数据绑定
+		div.progress
+			div(ng-class="['progress-bar', vm.style,vm.striped?'progress-bar-striped':'']",ng-style="{width:vm.width+'%'}",style="min-width:2em")
+				div(ng-if = "vm.label") {{vm.word}}{{vm.width}}%
+		div.progress-action
+			label(for="progressLabel") 
+				input#progressLabel(type="checkbox",ng-init="vm.label = true",ng-model="vm.label")
+				span 文字
+			label(for="progressStriped") 
+				input#progressStriped(type="checkbox",ng-init="vm.striped = true",ng-model="vm.striped")
+				span 斑马
+			label(for="progressWord") 进度条文字
+				input.form-control#progressWord(ng-model="vm.word")
+			label(for="progressWidth") 进度
+				input.form-control#progressWidth(type="text" ng-model="vm.width" ng-init="vm.width = 50")
+			label(for="progressStyle") 风格
+				select.form-control(ng-model="vm.style" ng-init="vm.style = 'progress-bar-info'",ng-options="type for type in vm.type")
+		h4 增删改查操作
+		progress-bar
+		label(for="addProgressStyle") 进度条类型
+			select.form-control#addProgressStyle(ng-model="vm.addType",ng-options="type for type in vm.type")
+				option(value="") 请选择类型
+		label(for="addProgressWidth")
+			input.form-control#addProgressWidth(type="number",ng-model="vm.addWidth",placeholder="进度百分比")
+		button.btn.btn-info(ng-click="vm.addProgress(vm.addType,vm.addWidth)") 添加进度条
+		h4 ui组件：城市3级联动
+		city-select
+
+
 			

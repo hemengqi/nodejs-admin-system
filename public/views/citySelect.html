@@ -1,0 +1,20 @@
+<div ng-controller="select">
+	<div class="clearfix">
+		<div class="col-xs-4" ng-if="city.countries">
+			<select class="form-control" ng-model="city.country" ng-options="country.name for country in city.countries">
+				<option value="">请选择国家</option>
+			</select>
+		</div>
+		<div class="col-xs-4" ng-if="city.country.provinces">
+			<select class="form-control" ng-model="city.province" ng-options="province.name for province in city.country.provinces">
+				<option value="">请选择省份</option>
+			</select>
+		</div>
+		<div class="col-xs-4" ng-if="city.province.city">
+			<select class="form-control" ng-model="city.city"  ng-options="city.name for city in city.province.city">
+				<option value="">请选择城市</option>
+			</select>
+		</div>
+	</div>
+	<p>所选城市为：{{city.country.name}}{{city.province.name}}{{city.city.name}}</p>
+</div>
