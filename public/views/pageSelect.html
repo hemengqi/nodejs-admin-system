@@ -1,0 +1,11 @@
+<div ng-controller="select">
+	<div class="clearfix">
+		<div class="col-xs-2">
+			<select class="form-control" ng-model="vm.page.size" ng-options="page for page in page.size"></select>
+		</div>
+		<div class="col-xs-8 pull-right">
+			  	<pagination total-items="vm.items|filter:vm.filter" total-page="vm.page"></pagination>
+		</div>
+	</div>
+
+</div>

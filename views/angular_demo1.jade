@@ -9,16 +9,16 @@ block content
 			div(ng-class="['progress-bar', vm.style,vm.striped?'progress-bar-striped':'']",ng-style="{width:vm.width+'%'}",style="min-width:2em")
 				div(ng-if = "vm.label") {{vm.word}}{{vm.width}}%
 		div.progress-action
-			label(for="progressLabel") 
-				input#progressLabel(type="checkbox",ng-init="vm.label = true",ng-model="vm.label")
-				span 文字
-			label(for="progressStriped") 
-				input#progressStriped(type="checkbox",ng-init="vm.striped = true",ng-model="vm.striped")
-				span 斑马
+			mixin proCheck(name,init,word)
+				label(for="progress-"+name) 
+					input(id="progress-"+name,type="checkbox",ng-init="vm."+name+" = "+init,ng-model="vm."+name)
+					span=word
+			+proCheck('label','true','文字')
+			+proCheck('striped','true','斑马')
 			label(for="progressWord") 进度条文字
-				input.form-control#progressWord(ng-model="vm.word")
+				input.form-control#progressWord(type="text",ng-model="vm.word")
 			label(for="progressWidth") 进度
-				input.form-control#progressWidth(type="text" ng-model="vm.width" ng-init="vm.width = 50")
+				input.form-control#progressWidth(type="text",ng-model="vm.width",ng-init="vm.width = 50")
 			label(for="progressStyle") 风格
 				select.form-control(ng-model="vm.style" ng-init="vm.style = 'progress-bar-info'",ng-options="type for type in vm.type")
 		h4 增删改查操作
@@ -31,27 +31,35 @@ block content
 		button.btn.btn-info(ng-click="vm.addProgress(vm.addType,vm.addWidth)") 添加进度条
 	h4 ui组件：城市3级联动
 	city-select
-	h4 ui组件综合：表格/表单
+	h4 ui组件综合：排序/分页/过滤/就地编辑
 	div(ng-controller="editableTable")
 		div.input-group
 			span.input-group-addon 全局搜索
 			input.form-control(type="text",ng-model='vm.filter.$')
-		table.table.table-striped.table-hover
+		table.table.table-bordered.table-hover
 			thead
 				tr
-					th(ng-repeat="th in vm.th") {{th.label}}
+					th(ng-repeat="th in vm.th",ng-click="vm.sort.toggle(th)") {{th.label}}
+						i(ng-if="vm.sort.column==th.column",ng-class="['glyphicon',vm.sort.reverse?'glyphicon-chevron-down':'glyphicon-chevron-up']")
 			tbody
-				tr(ng-repeat="item in vm.items")
+				tr
+					mixin modelTd(model)
+						td
+							input.form-control(type="text",ng-model= 'vm.filter.'+model)
+					+modelTd('id')
+					+modelTd('name')
+					+modelTd('mobile')
+					+modelTd('price')
+					td
+				tr(ng-repeat="item in vm.items|filter:vm.filter|orderBy:vm.sort.column:vm.sort.reverse|pagination:vm.page.index:vm.page.size")
 					td {{item.id}}
-					td 
-						span(ng-if="!item.editing") {{item.name}}
-						input.form-control(ng-if="item.editing",type="text",ng-model="item.name",value="{{item.name}}")
-					td 
-						span(ng-if="!item.editing") {{item.mobile}}
-						input.form-control(ng-if="item.editing",type="text" ,ng-model="item.mobile",value="{{item.mobile}}")
-					td 
-						span(ng-if="!item.editing") {{item.price}}元
-						input.form-control(ng-if="item.editing",type="text" ,ng-model="item.price",value="{{item.price}}")
+					mixin inputTd(model)
+						td 
+							span(ng-if="!item.editing")='{{item.'+model+'}}'
+							input.form-control(ng-if="item.editing",type="text",ng-model='item.'+model,value='{{item.'+model+'}}')
+					+inputTd('name')
+					+inputTd('mobile')
+					+inputTd('price')
 					td
 						span.btn.btn-primary.btn-xs(ng-click="item.editing = true",ng-if="!item.editing",title="编辑" )
 							i.glyphicon.glyphicon-pencil
@@ -59,6 +67,7 @@ block content
 							i.glyphicon.glyphicon-floppy-disk
 						span.btn.btn-danger.btn-xs(ng-click="vm.removeItem($index)")
 							i.glyphicon.glyphicon-remove
+		page-select
 
 
 			

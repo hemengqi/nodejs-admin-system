@@ -39,20 +39,24 @@ router.route('/login')
   (function(){
   	console.log('login account:');
     console.log(query);
-    userModel.findOne(query,function(err,user){
-      if(user){
-        /*用户存在*/
-  			console.log(query.name+' login success');
-        req.session.user = user;
-        console.log('req.session.user.name=='+req.session.user.name);
-        /*重定向到首页*/
-        res.redirect('/');
-  		}else{
-        /*用户不存在或密码错误*/
-  			console.log(query.name +' login fail');
-  			res.redirect('/login?login=&name='+query.name);
-  		}
-  	})
+    if(userModel){
+      userModel.findOne(query,function(err,user){
+        if(user){
+          /*用户存在*/
+    			console.log(query.name+' login success');
+          req.session.user = user;
+          console.log('req.session.user.name=='+req.session.user.name);
+          /*重定向到首页*/
+          res.redirect('/');
+    		}else{
+          /*用户不存在或密码错误*/
+    			console.log(query.name +' login fail');
+    			res.redirect('/login?login=&name='+query.name);
+    		}
+    	})
+    }else{
+      console.log('请连接数据库')
+    }
   })(query)
 });
 /* 注册页 */
